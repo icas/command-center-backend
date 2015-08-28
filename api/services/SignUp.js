@@ -18,7 +18,7 @@ module.exports = {
     }else{
       var userParams = { email: signupParams.email, password: signupParams.password };
 
-      User.create(userParams).exec(function(err, data){
+      User.create(userParams).exec(function onResultFetched(err, data){
         if(err){
           defer.reject({ user: signupParams, invalidAttributes: err.invalidAttributes });
         }else{
