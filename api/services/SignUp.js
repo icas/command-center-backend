@@ -9,14 +9,18 @@ module.exports = {
     var defer = Promise.defer();
     
     if(signupParams['password'] != signupParams['passwordConfirmation']){
-      return defer.reject({});
+      defer.reject({ 
+        user: signupParams, 
+        errors: { 
+          invalidAttributes: { passwordConfirmation: [{ message: "doens't match" }] } 
+        } 
+      });
     }else{
-      
       var userParams = { email: signupParams.email, password: signupParams.password };
 
       User.create(userParams).exec(function(err, data){
         if(err){
-          defer.reject({});
+          defer.reject({ user: signupParams, invalidAttributes: err.invalidAttributes });
         }else{
           defer.resolve(data);
         }

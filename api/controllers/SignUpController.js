@@ -1,11 +1,11 @@
 module.exports = {
-  create: function(req, resp){
-    SignUp.run(req.params)
+  create: function(req, res){
+    SignUp.run(req.body)
       .then(function(data){
-        resp.send("Yey");
+        res.sendOK(data);
       })
       .catch(function(err){
-        resp.send("Oops");
+        res.badRequest(err);
       });
   }
 }
